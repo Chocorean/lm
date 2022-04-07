@@ -26,9 +26,11 @@ jobs:
               id: test
               run: |
                 rspec spec/*_spec.rb
-            - name: CodeClimate after_script
-              id: cc_after
+            - name: CodeClimate after_script on_failure
+              id: cc_after_failure
               if: steps.test.outcome != 'success'
-              env:
-                  EXIT_CODE: 1 
-              run: ./cc-test-reporter after-build --exit-code ${{ env.EXIT_CODE }}    
+              run: ./cc-test-reporter after-build --exit-code 1
+            - name: CodeClimate after_script on_success
+              id: cc_after_success
+              if: steps.test.outcome == 'success'
+              run: ./cc-test-reporter after-build --exit-code 0
