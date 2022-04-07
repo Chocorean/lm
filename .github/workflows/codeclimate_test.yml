@@ -1,5 +1,7 @@
 name: CodeClimate coverage test
 on: [push]
+env:
+    CC_TEST_REPORTER_ID=24aa918abf203fe86bfe6e849fbe87dc0dd3a36a91f863d8330abd55438102a0
 jobs:
     ReportCoverageReport:
         runs-on: ubuntu-latest
@@ -11,4 +13,11 @@ jobs:
             - run: |
                 gem install bundler
                 bundle install
+            - run: |
+                curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+                chmod +x ./cc-test-reporter
+                ./cc-test-reporter before-build
+            - run: |
                 rspec spec/*_spec.rb
+            - run: |
+                ./cc-test-reporter after-build --exit-code 0
