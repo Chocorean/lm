@@ -3,3 +3,6 @@
 
 # vim
 *.sw[a-p]
+
+# simplecov report
+coverage/
