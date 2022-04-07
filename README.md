@@ -6,3 +6,7 @@
 # lm
 
 lm - list last modified files in directories
+
+> Almost like `find . -exec ls --full-time {} \; | grep -v 'total ' | sort -rk 6,7 | awk -F\  '{ print $9 }' | head -n5` !!
+
+
