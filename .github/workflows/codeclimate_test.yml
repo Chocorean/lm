@@ -1,7 +1,7 @@
 name: CodeClimate coverage test
 on: [push]
 env:
-    CC_TEST_REPORTER_ID=24aa918abf203fe86bfe6e849fbe87dc0dd3a36a91f863d8330abd55438102a0
+    CC_TEST_REPORTER_ID: 24aa918abf203fe86bfe6e849fbe87dc0dd3a36a91f863d8330abd55438102a0
 jobs:
     ReportCoverageReport:
         runs-on: ubuntu-latest
