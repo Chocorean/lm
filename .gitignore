@@ -1,0 +1,5 @@
+# byebug
+.byebug_history
+
+# vim
+*.sw[a-p]

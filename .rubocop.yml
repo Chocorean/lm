@@ -1,0 +1,12 @@
+require: rubocop-rspec
+
+AllCops:
+    NewCops: enable
+
+Naming/FileName:
+    Exclude:
+        - spec/*_spec.rb
+
+Metrics/BlockLength:
+    Exclude:
+        - spec/*_spec.rb
