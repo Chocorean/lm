@@ -5,7 +5,10 @@ require 'find'
 # LastModified module
 module LM
   # Return true if file matches regex of excluded filetypes
-  def self.excluded?(file, patterns=[])
+  def self.excluded?(file, options = {})
+    return false if options[:include_all]
+
+    patterns = options[:exclude] || []
     regex = [
       /\.cache$/, /\.log$/, /\.git/, /tmp/, /\.sw[a-p]$/
     ]
@@ -27,15 +30,16 @@ module LM
     entries = List.new options
     dirs.each do |dir|
       Find.find(dir) do |file|
-        next unless File.file?(file) && !LM.excluded?(file, options[:exclude])
+        next unless File.file?(file) && !LM.excluded?(file, options)
 
         entries.add file
       end
     rescue Errno::ENOENT
       unless options[:ignore_errors]
-        warn " #{dir} does not exist. Exiting..."
+        warn "lm: cannot access #{dir}: No such file or directory"
         exit 1
       end
+      next
     end
     entries
   end
@@ -75,11 +79,7 @@ module LM
     def add(entry)
       return unless check entry
 
-      if @files.length < @max_size
-        @files << entry
-      elsif LM.lmdate(entry) > LM.lmdate(@files[0])
-        @files << entry
-      end
+      @files << entry if @files.length < @max_size || LM.lmdate(entry) > LM.lmdate(@files[0])
       sort
     end
 

@@ -29,7 +29,7 @@ OptionParser.new do |parser|
     options[:ignore_errors] = true
   end
   parser.on('-n', '--lines NUM', Integer, 'Output the last NUM lines, instead of the ' \
-            "last #{options[:lines]}.") do |lines|
+                                          "last #{options[:lines]}.") do |lines|
     options[:lines] = lines
   end
 end.parse!

@@ -30,7 +30,7 @@ RSpec.describe LM, '#excluded?' do
   end
 
   context 'with additional patterns' do
-    patterns = ['\.pyc', '\.o']
+    patterns = { exclude: ['\.pyc', '\.o'] }
     it 'excludes all the added patterns #1' do
       expect(described_class.excluded?('main.pyc', patterns)).to be true
     end
