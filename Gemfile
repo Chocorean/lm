@@ -8,4 +8,5 @@ group :development do
   gem "rspec", "~> 3.0"
   gem "rubocop-rspec"
   gem "rubocop"
+  gem "simplecov"
 end
