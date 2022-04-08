@@ -15,10 +15,13 @@ jobs:
                 bundle install
             - name: Test and generate report
               id: test
+              run: |
+                  rspec spec/*_spec.rb
+            - name: Upload report
+              id: upload
               uses: paambaati/codeclimate-action@v3.0.0
               env:
                   CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
               with:
-                  coverageCommand: rspec spec/*_spec.rb
-                  debug: true
-              
+                  coverageLocations: |
+                      ${{github.workspace}}/coverage/.resultset.json:simplecov
